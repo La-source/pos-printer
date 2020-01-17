@@ -1,0 +1,39 @@
+{
+  "name": "pos-printer",
+  "version": "1.0.0",
+  "description": "ESC/POS printer driver for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "lint": "eslint **/*.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm test"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/La-source/pos-printer.git"
+  },
+  "keywords": [
+    "thermal printer",
+    "thermal",
+    "printer",
+    "printer esc",
+    "esc code",
+    "epson",
+    "star"
+  ],
+  "author": "Philippe Bauwens <ph.bauwens@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^13.1.7",
+    "eslint": "^6.8.0",
+    "husky": "^4.0.10"
+  },
+  "dependencies": {
+    "serialport": "^8.0.6",
+    "usb": "^1.6.2"
+  }
+}
