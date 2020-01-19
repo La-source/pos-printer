@@ -71,6 +71,10 @@ class NetworkInterface extends Interface {
       throw new Error("Printer not connected");
     }
 
+    if ( !data ) {
+      return;
+    }
+
     return new Promise((resolve, reject) => {
       this.cnx.write(data, err => {
         if ( err ) {

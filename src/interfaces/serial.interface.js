@@ -64,6 +64,10 @@ class SerialInterface extends Interface {
       throw new Error("Printer not connected");
     }
 
+    if ( !data ) {
+      return;
+    }
+
     return this.cnx.write(data.toString("utf8"));
   }
 }

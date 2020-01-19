@@ -1,6 +1,6 @@
 // Type definitions for pos-printer
 // Project: pos-printer
-// Definitions by: Philippe Bauwens <[~A URL FOR YOU~]>
+// Definitions by: Philippe Bauwens
 
 interface ConfigPrinter {
   driver: new () => Driver;
@@ -10,11 +10,13 @@ interface ConfigPrinter {
 export class Printer {
   constructor(config: ConfigPrinter);
 
+  get isOpen(): boolean;
+
   open(): Promise<void>;
 
   close(): void;
 
-  status(): Promise<PrinterStatus & OfflineStatus & ErrorStatus & PaperRollStatus>;
+  status(): Promise<Status>;
 
   createPrinting(): Printing;
 
@@ -29,6 +31,8 @@ export class Printing {
   print(text: string): this;
 
   verticalTab(): this;
+
+  // TODO logo
 
   beep(): this;
 
@@ -57,6 +61,12 @@ export class Printing {
   fontA(): this;
 
   fontB(): this;
+
+  // TODO text -> size
+
+  // TODO small
+
+  // TODO choice size (0-8)
 
   textNormal(): this;
 
@@ -94,6 +104,8 @@ interface PaperRollStatus {
   paperLow: boolean;
   paperNotPresent: boolean;
 }
+
+export interface Status extends PrinterStatus, OfflineStatus, ErrorStatus, PaperRollStatus {}
 
 export class Driver {
   getPrinterStatus(status: Buffer): PrinterStatus;

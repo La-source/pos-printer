@@ -9,6 +9,10 @@ class Printer {
     this.config = config;
   }
 
+  get isOpen() {
+    return this.interface.isOpen;
+  }
+
   open() {
     return this.interface.open();
   }
