@@ -4,7 +4,8 @@
 
 ## TODO list
 
-- documentation
 - read status on USB
 - bluetooth driver
-- server (other package)
+- page code
+- barcode & qrcode
+- extends code esc driver

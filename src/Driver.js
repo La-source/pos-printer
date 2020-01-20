@@ -160,22 +160,22 @@ class Driver {
     return new Buffer();
   }
 
-  get textNormal() {
+  get sizeNormal() {
     console.warn(`"textNormal" not implemented`);
     return new Buffer();
   }
 
-  get textDoubleHeight() {
+  get sizeDoubleHeight() {
     console.warn(`"textDoubleHeight" not implemented`);
     return new Buffer();
   }
 
-  get textDoubleWidth() {
+  get sizeDoubleWidth() {
     console.warn(`"textDoubleWidth" not implemented`);
     return new Buffer();
   }
 
-  get textQuadArea() {
+  get sizeQuadArea() {
     console.warn(`"textQuadArea" not implemented`);
     return new Buffer();
   }

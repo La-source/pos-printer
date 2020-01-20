@@ -354,19 +354,19 @@ class EpsonDriver extends Driver {
     return escapeCode.TXT_FONT_B;
   }
 
-  get textNormal() {
+  get sizeNormal() {
     return escapeCode.TXT_NORMAL;
   }
 
-  get textDoubleHeight() {
+  get sizeDoubleHeight() {
     return escapeCode.TXT_2HEIGHT;
   }
 
-  get textDoubleWidth() {
+  get sizeDoubleWidth() {
     return escapeCode.TXT_2WIDTH;
   }
 
-  get textQuadArea() {
+  get sizeQuadArea() {
     return escapeCode.TXT_4SQUARE;
   }
 

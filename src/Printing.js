@@ -76,19 +76,19 @@ class Printing {
     return this.append(this.driver.fontB);
   }
 
-  textNormal() {
+  sizeNormal() {
     return this.append(this.driver.textNormal);
   }
 
-  textDoubleHeight() {
+  sizeDoubleHeight() {
     return this.append(this.driver.textDoubleHeight);
   }
 
-  textDoubleWidth() {
+  sizeDoubleWidth() {
     return this.append(this.driver.textDoubleWidth);
   }
 
-  textQuadArea() {
+  sizeQuadArea() {
     return this.append(this.driver.textQuadArea);
   }
 
