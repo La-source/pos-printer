@@ -1,6 +1,6 @@
 {
   "name": "pos-printer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ESC/POS printer driver for nodejs",
   "main": "index.js",
   "scripts": {
