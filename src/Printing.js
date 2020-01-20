@@ -77,19 +77,19 @@ class Printing {
   }
 
   sizeNormal() {
-    return this.append(this.driver.textNormal);
+    return this.append(this.driver.sizeNormal);
   }
 
   sizeDoubleHeight() {
-    return this.append(this.driver.textDoubleHeight);
+    return this.append(this.driver.sizeDoubleHeight);
   }
 
   sizeDoubleWidth() {
-    return this.append(this.driver.textDoubleWidth);
+    return this.append(this.driver.sizeDoubleWidth);
   }
 
   sizeQuadArea() {
-    return this.append(this.driver.textQuadArea);
+    return this.append(this.driver.sizeQuadArea);
   }
 
   getText() {
