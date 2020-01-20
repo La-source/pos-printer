@@ -55,9 +55,7 @@ class UsbInterface extends Interface {
         return reject();
       }
 
-      // TODO not fonctionnal (?)
       this.inEndpoint.startPoll(1, 8);
-      this.inEndpoint.on("data", data => console.log("data", data));
 
       resolve();
     });
@@ -86,9 +84,7 @@ class UsbInterface extends Interface {
     }
 
     return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(Buffer.from([0]));
-      }, 100);
+      this.inEndpoint.once("data", data => resolve(data));
     });
   }
 

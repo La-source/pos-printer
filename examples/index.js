@@ -47,7 +47,7 @@ const printerNetwork = new Printer({
 
 const printerSerial = new Printer({
   driver:    EpsonDriver,
-  interface: new SerialInterface("COM4"),
+  interface: new SerialInterface("COM5"),
 });
 
 const printerUsb = new Printer({

@@ -4,7 +4,6 @@
 
 ## TODO list
 
-- read status on USB
 - bluetooth driver
 - page code
 - barcode & qrcode
