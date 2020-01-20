@@ -6,7 +6,7 @@ class Printer {
   constructor(config) {
     this.driver = new config.driver();
     this.interface = config.interface;
-    this.config = config;
+    this.width = config.width || 48;
   }
 
   get isOpen() {

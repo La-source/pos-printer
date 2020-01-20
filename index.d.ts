@@ -15,6 +15,11 @@ interface ConfigPrinter {
    * Interface for printer (network, serial,
    */
   interface: Interface;
+
+  /**
+   * Width printable (number normal char)
+   */
+  width?: number;
 }
 
 /**
