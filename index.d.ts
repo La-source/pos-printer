@@ -92,6 +92,11 @@ export class Printing {
    */
   verticalTab(): this;
 
+  /**
+   * Clear printer buffer
+   */
+  init(): this;
+
   // TODO logo
 
   /**
@@ -486,6 +491,11 @@ export class Interface {
   constructor(config?: ConfigInterface);
 
   /**
+   * Interface name (COM5, 192.168.1.100, ...)
+   */
+  get name(): string;
+
+  /**
    * Is interface open for communication with printer
    */
   get isOpen(): boolean;
@@ -509,7 +519,7 @@ export class Interface {
    * Write data to printer
    * @param data
    */
-  write(data: Buffer): Promise<void>;
+  write(data: Buffer): Promise<void> | void;
 }
 
 /**

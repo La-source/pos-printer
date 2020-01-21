@@ -14,6 +14,10 @@ class UsbInterface extends Interface {
     this.inEndpoint = null;
   }
 
+  get name() {
+    return this.vid + " " + this.pid;
+  }
+
   get isOpen() {
     return this.outEndpoint && this.inEndpoint;
   }

@@ -14,6 +14,10 @@ class SerialInterface extends Interface {
     this.cnx = null;
   }
 
+  get name() {
+    return this.port;
+  }
+
   get isOpen() {
     return this._isOpen;
   }

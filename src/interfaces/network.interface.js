@@ -13,6 +13,10 @@ class NetworkInterface extends Interface {
     this.port = port || 9100;
   }
 
+  get name() {
+    return this.host + ":" + this.port;
+  }
+
   get isOpen() {
     return this._isOpen;
   }

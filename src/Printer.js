@@ -21,35 +21,43 @@ class Printer {
     return this.interface.close();
   }
 
-  async status() {
+  status() {
     if ( !this.interface.isOpen ) {
       throw new Error("Interface not open");
     }
 
-    const timeout = setTimeout(() => {
-      throw new Error("Cannot fetch status");
-    }, this.interface.timeout);
+    return new Promise((resolve, reject) => {
+      let printerStatus;
+      let offLineStatus;
+      let errorStatus;
+      let paperRollStatus;
+      const timeout = setTimeout(() =>
+        reject("timeout"),
+      this.interface.timeout);
 
-    await this.interface.write(this.driver.printerStatus);
-    const printerStatus = await this.interface.read();
-
-    await this.interface.write(this.driver.offLineStatus);
-    const offLineStatus = await this.interface.read();
-
-    await this.interface.write(this.driver.errorStatus);
-    const errorStatus = await this.interface.read();
-
-    await this.interface.write(this.driver.paperRollStatus);
-    const paperRollStatus = await this.interface.read();
-
-    clearTimeout(timeout);
-
-    return {
-      ...this.driver.getPrinterStatus(printerStatus),
-      ...this.driver.getOfflineStatus(offLineStatus),
-      ...this.driver.getErrorStatus(errorStatus),
-      ...this.driver.getPaperRollStatus(paperRollStatus),
-    };
+      Promise.resolve()
+        .then(() => this.interface.write(this.driver.printerStatus))
+        .then(() => this.interface.read())
+        .then(result => printerStatus = result)
+        .then(() => this.interface.write(this.driver.offLineStatus))
+        .then(() => this.interface.read())
+        .then(result => offLineStatus = result)
+        .then(() => this.interface.write(this.driver.errorStatus))
+        .then(() => this.interface.read())
+        .then(result => errorStatus = result)
+        .then(() => this.interface.write(this.driver.paperRollStatus))
+        .then(() => this.interface.read())
+        .then(result => paperRollStatus = result)
+        .then(() => clearTimeout(timeout))
+        .then(() => resolve({
+          ...this.driver.getPrinterStatus(printerStatus),
+          ...this.driver.getOfflineStatus(offLineStatus),
+          ...this.driver.getErrorStatus(errorStatus),
+          ...this.driver.getPaperRollStatus(paperRollStatus),
+        }))
+        .catch(err => reject(err))
+      ;
+    });
   }
 
   createPrinting() {

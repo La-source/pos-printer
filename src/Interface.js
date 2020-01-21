@@ -9,6 +9,10 @@ class Interface {
     this.timeout = config.timeout || 500;
   }
 
+  get name() {
+    return undefined;
+  }
+
   get isOpen() {
     throw new Error("Function not supported");
   }

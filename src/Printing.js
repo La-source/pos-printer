@@ -15,6 +15,10 @@ class Printing {
     return this.append(this.driver.verticalTab);
   }
 
+  init() {
+    return this.append(this.driver.init);
+  }
+
   beep() {
     return this.append(this.driver.beep);
   }
