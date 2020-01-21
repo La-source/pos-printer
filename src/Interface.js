@@ -6,7 +6,7 @@ class Interface {
       config = {};
     }
 
-    this.timeout = config.timeout || 5000;
+    this.timeout = config.timeout || 500;
   }
 
   get isOpen() {

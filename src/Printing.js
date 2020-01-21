@@ -2,6 +2,7 @@
 
 class Printing {
   constructor(printer) {
+    this.printer = printer;
     this.driver = printer.driver;
     this.buffer = null;
   }

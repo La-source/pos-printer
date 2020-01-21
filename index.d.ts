@@ -26,6 +26,12 @@ interface ConfigPrinter {
  * Printer
  */
 export class Printer {
+  readonly driver: Driver;
+
+  readonly interface: Interface;
+
+  readonly width: number;
+
   constructor(config: ConfigPrinter);
 
   /**
@@ -64,6 +70,10 @@ export class Printer {
  * Printing task
  */
 export class Printing {
+  readonly printer: Printer;
+
+  readonly driver: Driver;
+
   constructor(printer: Printer);
 
   /**
@@ -471,6 +481,8 @@ interface ConfigInterface {
  * Interface printer
  */
 export class Interface {
+  readonly timeout: number;
+
   constructor(config?: ConfigInterface);
 
   /**
