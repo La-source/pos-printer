@@ -565,6 +565,16 @@ export class UsbInterface extends Interface {
    * @param config
    */
   constructor(vid: number, pid:  number, config?: ConfigInterface);
+}
 
-  // TODO discover printer
+/**
+ * Bluetooth interface
+ */
+export class BluetoothInterface extends Interface {
+  /**
+   *
+   * @param address Bluetooth printer address
+   * @param config
+   */
+  constructor(address: string, config?: ConfigInterface);
 }

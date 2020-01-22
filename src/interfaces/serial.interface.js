@@ -3,8 +3,6 @@
 const SerialPort = require("serialport");
 const {Interface} = require("../Interface");
 
-// TODO SerialPort.list().then(console.log);
-
 class SerialInterface extends Interface {
   constructor(port, config) {
     super(config);

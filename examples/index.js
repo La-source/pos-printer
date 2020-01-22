@@ -1,6 +1,13 @@
 "use strict";
 
-const {EpsonDriver, Printer, NetworkInterface, SerialInterface, UsbInterface} = require("../index");
+const {
+  EpsonDriver,
+  Printer,
+  NetworkInterface,
+  SerialInterface,
+  UsbInterface,
+  BluetoothInterface,
+} = require("../index");
 
 async function print(printer) {
   try {
@@ -55,19 +62,27 @@ const printerUsb = new Printer({
   interface: new UsbInterface(8401, 28681),
 });
 
+const printerBluetooth = new Printer({
+  driver:    EpsonDriver,
+  interface: new BluetoothInterface("(74:F0:00:00:00:00)Metapace M-30i"),
+});
+
 
 (async () => {
   await test(printerNetwork);
   await test(printerSerial);
   await test(printerUsb);
+  await test(printerBluetooth);
   await print(printerNetwork);
   await print(printerSerial);
   await print(printerUsb);
+  await print(printerBluetooth);
 
   const discover = [
     ...(await UsbInterface.discover()),
     ...(await NetworkInterface.discover()),
     ...(await SerialInterface.discover()),
+    ...(await BluetoothInterface.discover()),
   ];
 
   console.log(discover.map(iface => iface.name));

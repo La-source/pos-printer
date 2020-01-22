@@ -10,4 +10,5 @@ module.exports = {
   ...require("./src/interfaces/network.interface"),
   ...require("./src/interfaces/serial.interface"),
   ...require("./src/interfaces/usb.interface"),
+  ...require("./src/interfaces/bluetooth.interface"),
 };
