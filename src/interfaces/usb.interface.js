@@ -1,7 +1,19 @@
 "use strict";
 
-const {findByIds} = require("usb");
+const {findByIds, getDeviceList} = require("usb");
 const {Interface} = require("../Interface");
+
+/**
+ * [USB Class Codes ]
+ * @type {Object}
+ * @docs http://www.usb.org/developers/defined_class
+ */
+const IFACE_CLASS = {
+  AUDIO:   0x01,
+  HID:     0x03,
+  PRINTER: 0x07,
+  HUB:     0x09,
+};
 
 class UsbInterface extends Interface {
   constructor(vid, pid, config) {
@@ -122,6 +134,29 @@ class UsbInterface extends Interface {
         resolve();
       });
     });
+  }
+
+  static async discover() {
+    const devices = [];
+
+    for ( const device of getDeviceList() ) {
+      if ( !device.configDescriptor || !device.configDescriptor.interfaces ) {
+        continue;
+      }
+
+      for ( const ifaces of device.configDescriptor.interfaces ) {
+        for ( const iface of ifaces ) {
+          if ( iface.bInterfaceClass === IFACE_CLASS.PRINTER ) {
+            devices.push(new UsbInterface(
+              device.deviceDescriptor.idVendor,
+              device.deviceDescriptor.idProduct,
+            ));
+          }
+        }
+      }
+    }
+
+    return this._tryOpen(devices);
   }
 }
 

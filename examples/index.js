@@ -63,5 +63,13 @@ const printerUsb = new Printer({
   await print(printerNetwork);
   await print(printerSerial);
   await print(printerUsb);
+
+  const discover = [
+    ...(await UsbInterface.discover()),
+    ...(await NetworkInterface.discover()),
+    ...(await SerialInterface.discover()),
+  ];
+
+  console.log(discover.map(iface => iface.name));
 })();
 

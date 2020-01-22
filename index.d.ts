@@ -525,6 +525,8 @@ export class Interface {
    * @param data
    */
   write(data: Buffer): Promise<void> | void;
+
+  static discover(): Promise<Interface[]>;
 }
 
 /**

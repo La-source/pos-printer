@@ -83,6 +83,12 @@ class SerialInterface extends Interface {
 
     return this.cnx.write(data.toString("utf8"));
   }
+
+  static async discover() {
+    const ifaces = await SerialPort.list();
+    const devices = ifaces.map(iface => new SerialInterface(iface.path));
+    return this._tryOpen(devices);
+  }
 }
 
 module.exports = { SerialInterface };

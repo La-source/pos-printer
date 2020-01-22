@@ -1,6 +1,7 @@
 "use strict";
 
 const { connect } = require("net");
+const find = require("local-devices");
 const {Interface} = require("../Interface");
 
 class NetworkInterface extends Interface {
@@ -89,6 +90,12 @@ class NetworkInterface extends Interface {
         resolve();
       });
     });
+  }
+
+  static async discover() {
+    const ifaces = await find();
+    const devices = ifaces.map(iface => new NetworkInterface(iface.ip));
+    return this._tryOpen(devices);
   }
 }
 
