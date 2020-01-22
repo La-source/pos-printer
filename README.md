@@ -8,3 +8,4 @@
 - page code
 - barcode & qrcode
 - extends code esc driver
+- discover

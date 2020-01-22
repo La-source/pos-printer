@@ -12,18 +12,24 @@ class UsbInterface extends Interface {
     this.device = null;
     this.outEndpoint = null;
     this.inEndpoint = null;
+    this._isOpen = false;
   }
 
   get name() {
-    return this.vid + " " + this.pid;
+    return "USB: " + this.vid + ":" + this.pid;
   }
 
   get isOpen() {
-    return this.outEndpoint && this.inEndpoint;
+    return this._isOpen;
   }
 
   open() {
     this.device = findByIds(this.vid, this.pid);
+
+    if ( !this.device ) {
+      return Promise.reject("not device connected");
+    }
+
     this.device.open(true);
 
     return new Promise((resolve, reject) => {
@@ -49,6 +55,7 @@ class UsbInterface extends Interface {
       */
 
       iface.claim();
+      this._isOpen = true;
 
       this.inEndpoint = iface.endpoints
         .filter(endpoint => endpoint.direction === "in")[0];
@@ -61,6 +68,9 @@ class UsbInterface extends Interface {
 
       this.inEndpoint.startPoll(1, 8);
 
+      this.inEndpoint.on("error", () => this.close());
+      this.outEndpoint.on("error", () => this.close());
+
       resolve();
     });
 
@@ -71,6 +81,8 @@ class UsbInterface extends Interface {
     if ( !this.isOpen ) {
       return;
     }
+
+    this._isOpen = false;
 
     return new Promise(resolve => {
       this.inEndpoint.stopPoll(() => {

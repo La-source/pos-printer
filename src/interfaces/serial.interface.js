@@ -15,7 +15,7 @@ class SerialInterface extends Interface {
   }
 
   get name() {
-    return this.port;
+    return "SERIAL: " + this.port;
   }
 
   get isOpen() {
@@ -31,6 +31,9 @@ class SerialInterface extends Interface {
           return reject(err);
         }
 
+        this.cnx.on("error", (err) => console.error("err", err));
+        this.cnx.on("close", () => this.close());
+
         this._isOpen = true;
         resolve();
       });
@@ -42,7 +45,13 @@ class SerialInterface extends Interface {
       return;
     }
 
+    this._isOpen = false;
+
     return new Promise((resolve, reject) => {
+      if ( !this.cnx.isOpen ) {
+        return resolve();
+      }
+
       this.cnx.close(err => {
         if ( err ) {
           return reject(err);

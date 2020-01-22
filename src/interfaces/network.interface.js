@@ -14,7 +14,7 @@ class NetworkInterface extends Interface {
   }
 
   get name() {
-    return this.host + ":" + this.port;
+    return "NETWORK: " + this.host + ":" + this.port;
   }
 
   get isOpen() {
@@ -25,7 +25,7 @@ class NetworkInterface extends Interface {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         this.cnx.destroy();
-        reject();
+        reject("timeout");
       }, this.timeout);
 
       this.cnx = connect({
@@ -45,6 +45,7 @@ class NetworkInterface extends Interface {
           reject(err);
         })
         .on("close", () => {
+          this.cnx.destroy();
           this._isOpen = false;
         })
       ;

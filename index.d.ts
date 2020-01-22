@@ -35,6 +35,11 @@ export class Printer {
   constructor(config: ConfigPrinter);
 
   /**
+   * Printer name
+   */
+  get name(): string;
+
+  /**
    * Communication with printer is open
    */
   get isOpen(): boolean;

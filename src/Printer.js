@@ -9,6 +9,10 @@ class Printer {
     this.width = config.width || 48;
   }
 
+  get name() {
+    return this.interface.name;
+  }
+
   get isOpen() {
     return this.interface.isOpen;
   }
