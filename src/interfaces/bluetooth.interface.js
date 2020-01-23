@@ -5,7 +5,9 @@ const {BluetoothSerialPort} = require("bluetooth-serial-port");
 
 class BluetoothInterface extends Interface {
   constructor(address, config) {
-    super(config);
+    super(config, {
+      intervalCheckStatus: 30e3,
+    });
 
     this.address = address;
     this._isOpen = false;

@@ -491,9 +491,17 @@ interface ConfigInterface {
  * Interface printer
  */
 export class Interface {
+  /**
+   * Timeout of printer
+   */
   readonly timeout: number;
 
-  constructor(config?: ConfigInterface);
+  /**
+   * Interval check status (for server)
+   */
+  readonly intervalCheckStatus: number;
+
+  constructor(config?: ConfigInterface, overwriteConfig?: ConfigInterface);
 
   /**
    * Interface name (COM5, 192.168.1.100, ...)

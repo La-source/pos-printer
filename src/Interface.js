@@ -1,12 +1,17 @@
 "use strict";
 
 class Interface {
-  constructor(config) {
+  constructor(config, overwriteConfig) {
     if ( !config ) {
       config = {};
     }
 
-    this.timeout = config.timeout || 500;
+    if ( !overwriteConfig ) {
+      overwriteConfig = {};
+    }
+
+    this.timeout = config.timeout || overwriteConfig.timeout || 500;
+    this.intervalCheckStatus = config.intervalCheckStatus || overwriteConfig.intervalCheckStatus || 1e3;
   }
 
   get name() {
