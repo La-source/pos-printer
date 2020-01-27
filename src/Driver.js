@@ -179,6 +179,11 @@ class Driver {
     console.warn(`"textQuadArea" not implemented`);
     return new Buffer();
   }
+
+  setCharacterSet(_characterSet) {
+    console.warn(`"setCharacterSet" not implemented`);
+    return new Buffer();
+  }
 }
 
 module.exports = {Driver};

@@ -15,8 +15,10 @@ async function print(printer) {
 
     const printing = printer.createPrinting();
     printing
+      .setCharacterSet("PC858_EURO")
       .alignCenter()
-      .print("Hello world")
+      .print("Hello world\n")
+      .print(`33.10€ &é"'(§è!çà)-`)
       .verticalTab()
       .verticalTab()
       .beep()
@@ -48,22 +50,22 @@ async function test(printer) {
 }
 
 const printerNetwork = new Printer({
-  driver:    EpsonDriver,
+  driver:    new EpsonDriver(),
   interface: new NetworkInterface("192.168.1.215"),
 });
 
 const printerSerial = new Printer({
-  driver:    EpsonDriver,
+  driver:    new EpsonDriver(),
   interface: new SerialInterface("COM5"),
 });
 
 const printerUsb = new Printer({
-  driver:    EpsonDriver,
+  driver:    new EpsonDriver(),
   interface: new UsbInterface(8401, 28681),
 });
 
 const printerBluetooth = new Printer({
-  driver:    EpsonDriver,
+  driver:    new EpsonDriver(),
   interface: new BluetoothInterface("(74:F0:00:00:00:00)Metapace M-30i"),
 });
 

@@ -4,7 +4,7 @@ const {Printing} = require("./Printing");
 
 class Printer {
   constructor(config) {
-    this.driver = new config.driver();
+    this.driver = config.driver;
     this.interface = config.interface;
     this.width = config.width || 48;
   }

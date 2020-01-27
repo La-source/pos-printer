@@ -1,6 +1,6 @@
 {
   "name": "pos-printer",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "ESC/POS printer driver for nodejs",
   "main": "index.js",
   "scripts": {
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "bluetooth-serial-port": "^2.2.7",
+    "iconv-lite": "^0.5.1",
     "local-devices": "^3.0.0",
     "serialport": "^8.0.6",
     "usb": "^1.6.2"

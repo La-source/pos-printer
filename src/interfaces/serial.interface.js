@@ -4,10 +4,11 @@ const SerialPort = require("serialport");
 const {Interface} = require("../Interface");
 
 class SerialInterface extends Interface {
-  constructor(port, config) {
+  constructor(port, baudRate, config) {
     super(config);
 
     this.port = port;
+    this.baudRate = baudRate || 9600;
     this._isOpen = false;
     this.cnx = null;
   }
@@ -23,7 +24,7 @@ class SerialInterface extends Interface {
   open() {
     return new Promise((resolve, reject) => {
       this.cnx = new SerialPort(this.port, {
-        baudRate: 9600, // TODO param
+        baudRate: this.baudRate,
       }, err => {
         if ( err ) {
           return reject(err);

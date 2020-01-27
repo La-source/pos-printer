@@ -97,6 +97,9 @@
     ],
     "new-parens": [
       "error"
+    ],
+    "no-prototype-builtins": [
+      "off"
     ]
   }
 }

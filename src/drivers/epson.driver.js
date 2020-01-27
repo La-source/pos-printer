@@ -1,6 +1,6 @@
 const {Driver} = require("../Driver");
 
-const escapeCode = {
+const escapeCodeDefault = {
   STATUS_PRINTER:    Buffer.from([0x10, 0x04, 0x01]), // Printer status
   STATUS_OFF_LINE:   Buffer.from([0x10, 0x04, 0x02]), // Offline status
   STATUS_ERROR:      Buffer.from([0x10, 0x04, 0x03]), // Error status
@@ -98,47 +98,6 @@ const escapeCode = {
   CODE_PAGE_CHINA:                 Buffer.from([0x1b, 0x52, 0x0F]),
   CODE_PAGE_HK_TW:                 Buffer.from([0x1b, 0x52, 0x00]),
 
-  // Character code pages / iconv name of code table.
-  // Only code pages supported by iconv-lite:
-  // https://github.com/ashtuchkin/iconv-lite/wiki/Supported-Encodings
-  CODE_PAGES: {
-    PC437_USA:             "CP437",
-    PC850_MULTILINGUAL:    "CP850",
-    PC860_PORTUGUESE:      "CP860",
-    PC863_CANADIAN_FRENCH: "CP863",
-    PC865_NORDIC:          "CP865",
-    PC851_GREEK:           "CP860",
-    PC857_TURKISH:         "CP857",
-    PC737_GREEK:           "CP737",
-    ISO8859_7_GREEK:       "ISO-8859-7",
-    WPC1252:               "CP1252",
-    PC866_CYRILLIC2:       "CP866",
-    PC852_LATIN2:          "CP852",
-    SLOVENIA:              "CP852",
-    PC858_EURO:            "CP858",
-    WPC775_BALTIC_RIM:     "CP775",
-    PC855_CYRILLIC:        "CP855",
-    PC861_ICELANDIC:       "CP861",
-    PC862_HEBREW:          "CP862",
-    PC864_ARABIC:          "CP864",
-    PC869_GREEK:           "CP869",
-    ISO8859_2_LATIN2:      "ISO-8859-2",
-    ISO8859_15_LATIN9:     "ISO-8859-15",
-    PC1125_UKRANIAN:       "CP1125",
-    WPC1250_LATIN2:        "WIN1250",
-    WPC1251_CYRILLIC:      "WIN1251",
-    WPC1253_GREEK:         "WIN1253",
-    WPC1254_TURKISH:       "WIN1254",
-    WPC1255_HEBREW:        "WIN1255",
-    WPC1256_ARABIC:        "WIN1256",
-    WPC1257_BALTIC_RIM:    "WIN1257",
-    WPC1258_VIETNAMESE:    "WIN1258",
-    KZ1048_KAZAKHSTAN:     "RK1048",
-    JAPAN:                 "EUC-JP",
-    CHINA:                 "EUC-CN",
-    HK_TW:                 "Big5-HKSCS",
-  },
-
   // Barcode format
   BARCODE_TXT_OFF: Buffer.from([0x1d, 0x48, 0x00]), // HRI barcode chars OFF
   BARCODE_TXT_ABV: Buffer.from([0x1d, 0x48, 0x01]), // HRI barcode chars above
@@ -213,6 +172,19 @@ const escapeCode = {
 };
 
 class EpsonDriver extends Driver {
+  constructor(escapeCode) {
+    super();
+
+    if ( !escapeCode ) {
+      escapeCode = {};
+    }
+
+    this.escapeCode = {
+      ...escapeCodeDefault,
+      ...escapeCode,
+    };
+  }
+
   getPrinterStatus(status) {
     status = this.convertStatus(status);
 
@@ -252,122 +224,130 @@ class EpsonDriver extends Driver {
   }
 
   get printerStatus() {
-    return escapeCode.STATUS_PRINTER;
+    return this.escapeCode.STATUS_PRINTER;
   }
 
   get offLineStatus() {
-    return escapeCode.STATUS_OFF_LINE;
+    return this.escapeCode.STATUS_OFF_LINE;
   }
 
   get errorStatus() {
-    return escapeCode.STATUS_ERROR;
+    return this.escapeCode.STATUS_ERROR;
   }
 
   get paperRollStatus() {
-    return escapeCode.STATUS_PAPER_ROLL;
+    return this.escapeCode.STATUS_PAPER_ROLL;
   }
 
   get init() {
-    return escapeCode.HW_INIT;
+    return this.escapeCode.HW_INIT;
   }
 
   get verticalTab() {
-    return escapeCode.CTL_VT;
+    return this.escapeCode.CTL_VT;
   }
 
   get beep() {
-    return escapeCode.BEEP;
+    return this.escapeCode.BEEP;
   }
 
   get cut() {
-    return escapeCode.PAPER_FULL_CUT;
+    return this.escapeCode.PAPER_FULL_CUT;
   }
 
   get partialCut() {
-    return escapeCode.PAPER_PART_CUT;
+    return this.escapeCode.PAPER_PART_CUT;
   }
 
   get cashDrawer() {
     return Buffer.concat([
-      escapeCode.CD_KICK_2,
-      escapeCode.CD_KICK_5,
+      this.escapeCode.CD_KICK_2,
+      this.escapeCode.CD_KICK_5,
     ]);
   }
 
   get boldOn() {
-    return escapeCode.TXT_BOLD_ON;
+    return this.escapeCode.TXT_BOLD_ON;
   }
 
   get boldOff() {
-    return escapeCode.TXT_BOLD_OFF;
+    return this.escapeCode.TXT_BOLD_OFF;
   }
 
   get underlineOn() {
-    return escapeCode.TXT_UNDERL_ON;
+    return this.escapeCode.TXT_UNDERL_ON;
   }
 
   get underlineOff() {
-    return escapeCode.TXT_UNDERL_OFF;
+    return this.escapeCode.TXT_UNDERL_OFF;
   }
 
   get underlineThickOn() {
-    return escapeCode.TXT_UNDERL2_ON;
+    return this.escapeCode.TXT_UNDERL2_ON;
   }
 
   get underlineThickOff() {
-    return escapeCode.TXT_UNDERL_OFF;
+    return this.escapeCode.TXT_UNDERL_OFF;
   }
 
   get upsideDownOn() {
-    return escapeCode.UPSIDE_DOWN_ON;
+    return this.escapeCode.UPSIDE_DOWN_ON;
   }
 
   get upsideDownOff() {
-    return escapeCode.UPSIDE_DOWN_OFF;
+    return this.escapeCode.UPSIDE_DOWN_OFF;
   }
 
   get invertOn() {
-    return escapeCode.TXT_INVERT_ON;
+    return this.escapeCode.TXT_INVERT_ON;
   }
 
   get invertOff() {
-    return escapeCode.TXT_INVERT_OFF;
+    return this.escapeCode.TXT_INVERT_OFF;
   }
 
   get alignCenter() {
-    return escapeCode.TXT_ALIGN_CT;
+    return this.escapeCode.TXT_ALIGN_CT;
   }
 
   get alignLeft() {
-    return escapeCode.TXT_ALIGN_LT;
+    return this.escapeCode.TXT_ALIGN_LT;
   }
 
   get alignRight() {
-    return escapeCode.TXT_ALIGN_RT;
+    return this.escapeCode.TXT_ALIGN_RT;
   }
 
   get fontA() {
-    return escapeCode.TXT_FONT_A;
+    return this.escapeCode.TXT_FONT_A;
   }
 
   get fontB() {
-    return escapeCode.TXT_FONT_B;
+    return this.escapeCode.TXT_FONT_B;
   }
 
   get sizeNormal() {
-    return escapeCode.TXT_NORMAL;
+    return this.escapeCode.TXT_NORMAL;
   }
 
   get sizeDoubleHeight() {
-    return escapeCode.TXT_2HEIGHT;
+    return this.escapeCode.TXT_2HEIGHT;
   }
 
   get sizeDoubleWidth() {
-    return escapeCode.TXT_2WIDTH;
+    return this.escapeCode.TXT_2WIDTH;
   }
 
   get sizeQuadArea() {
-    return escapeCode.TXT_4SQUARE;
+    return this.escapeCode.TXT_4SQUARE;
+  }
+
+  setCharacterSet(characterSet) {
+    if ( !this.escapeCode.hasOwnProperty("CODE_PAGE_" + characterSet) ) {
+      throw new Error(`CharacterSet "${characterSet}" don't exist`);
+    }
+
+    return this.escapeCode["CODE_PAGE_" + characterSet];
   }
 
   convertStatus(status) {

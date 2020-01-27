@@ -9,7 +9,7 @@ interface ConfigPrinter {
   /**
    * Driver for printer
    */
-  driver: new () => Driver;
+  driver: Driver;
 
   /**
    * Interface for printer (network, serial,
@@ -471,10 +471,24 @@ export class Driver {
   get sizeQuadArea(): Buffer;
 
   /**
+   * Define characterSet for printer
+   * @param characterSet
+   */
+  setCharacterSet(characterSet): Buffer;
+
+  /**
    * Convert buffer status to status number
    * @param status
    */
   private convertStatus(status: Buffer): number;
+}
+
+export class EpsonDriver extends Driver {
+  constructor(escapeCode?: object);
+}
+
+export class StarDriver extends Driver {
+
 }
 
 /**
